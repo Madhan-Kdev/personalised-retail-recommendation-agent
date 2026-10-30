@@ -75,7 +75,9 @@ def main():
             st.caption(f"{product['brand']} · {product['category']}")
             st.write(f"**${product['price']:.2f}** · Rating {product['rating']}/5")
             st.progress(min(max(float(recommendation["confidence"]), 0.0), 1.0))
-            st.write(explanation["reasoning"])
+            st.write(explanation.get("headline_explanation", "Personalized for your profile."))
+            for reason in explanation.get("key_reasons", []):
+                st.write(f"- {reason}")
             citations = explanation.get("citations", [])
             if citations:
                 st.caption(" · ".join(citations))
